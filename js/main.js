@@ -11,13 +11,17 @@ function loadContent(pageName) {
     }
 
 }
-loadContent('football');
+loadContent('allSports');
 var links = document.querySelectorAll('.nav-link');
+links.forEach(link => link.style.cursor = "pointer")
 
 links.forEach(element => {
     element.addEventListener('click', function (e) {
-        var pagina = e.target.rel;
-        location.hash = pagina;
-
+        e.stopPropagation();
+        let page = e.target.rel;
+        location.hash = page;
     });
+    window.addEventListener("hashchange", function () {
+        loadContent(location.hash.split('#')[1])
+    })
 });
